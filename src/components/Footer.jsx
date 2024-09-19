@@ -18,7 +18,7 @@ const Footer = () => {
                         &nbsp;<BsGithub />
                     </span>
                 </a>
-                <a href="https://github.com/Erik-Varga/react-vite-tetris-game" target="_blank" rel="noreferrer" className='text-xs'>
+                <a href="https://github.com/Erik-Varga/react-memory-game" target="_blank" rel="noreferrer" className='text-xs'>
                 Source Code |&nbsp;
                 </a>
             </span>
