@@ -26,6 +26,8 @@ function App() {
     "/img/cover9.png",
     "/img/cover10.png",
     "/img/cover11.png",
+    "/img/cover12.png",
+    "/img/cover13.png",
   ];
 
   const [cards, setCards] = useState([]);
