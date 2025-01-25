@@ -1,138 +1,53 @@
-import './App.css'
+import React, { useEffect, useState } from 'react'
+import Navbar from './components/Navbar'
+import Hero from './components/Hero'
+import Services from './components/Services'
+import Portfolio from './components/Portfolio'
+import About from './components/About'
+import Reviews from './components/Reviews'
+import Contact from './components/Contact'
 import Footer from './components/Footer'
-import { useState, useEffect } from 'react'
-import SingleCard from './components/SingleCard'
+import Socials from './components/Socials'
+import { BsMoon, BsSun } from 'react-icons/bs'
 
-const cardImages = [
-  { "src": "/img/helmet-1.png", matched: false },
-  { "src": "/img/potion-1.png", matched: false },
-  { "src": "/img/ring-1.png", matched: false },
-  { "src": "/img/scroll-1.png", matched: false },
-  { "src": "/img/shield-1.png", matched: false },
-  { "src": "/img/sword-1.png", matched: false }
-]
+const App = () => {
+  const [theme, setTheme] = useState(null);
 
-function App() {
-  const [numbers, setNumbers] = useState([]);
-  const arr = [
-    "/img/cover1.png", 
-    "/img/cover2.png", 
-    "/img/cover3.png", 
-    "/img/cover4.png",
-    "/img/cover5.png",
-    "/img/cover6.png",
-    "/img/cover7.png",
-    "/img/cover8.png",
-    "/img/cover9.png",
-    "/img/cover10.png",
-    "/img/cover11.png",
-    "/img/cover12.png",
-    "/img/cover13.png",
-  ];
-
-  const [cards, setCards] = useState([]);
-  const [turns, setTurns] = useState(0);
-  const [choiceOne, setChoiceOne] = useState(null);
-  const [choiceTwo, setChoiceTwo] = useState(null);
-  const [disabled, setDisabled] = useState(false);
-  
-  // shuffle cards
-  const shuffleCards = () => {
-    resetNumber();
-    const shuffledCards = [...cardImages, ...cardImages]
-      .sort(() => Math.random() - 0.5)
-      .map((card) => ({ ...card, id: Math.random() }))
-
-    setChoiceOne(null)
-    setChoiceTwo(null)
-    setCards(shuffledCards)
-    setTurns(0)
-  }
-
-  // handle a choice
-  const handleChoice = (card) => {
-    choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
-
-  }
-
-  // compare 2 selected cards
   useEffect(() => {
-    if (choiceOne && choiceTwo) {
-      setDisabled(true)
-      if (choiceOne.src === choiceTwo.src) {
-        console.log('match')
-        setCards(prevCards => {
-          return prevCards.map(card => {
-            if (card.src === choiceOne.src)  {
-              return { ...card, matched: true }
-            } else {
-              return card
-            }
-          })
-        })
-        resetTurn()
-      } else {
-        setTimeout(() => resetTurn(), 1000)
-        
-      }
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setTheme('dark');
     }
-  }, [choiceOne, choiceTwo])
-
-  // reset choices & increase turn
-  const resetTurn = () => {
-    setChoiceOne(null)
-    setChoiceTwo(null)
-    setTurns(prevTurns => prevTurns + 1)
-    setDisabled(false)
-  }
-
-  const resetNumber = () => {
-    const randomNumbers = [];
-    while (randomNumbers.length < 1) {
-      const index = Math.floor(Math.random() * arr.length);
-      const number = arr[index];
-      if (!randomNumbers.includes(number)) {
-        randomNumbers.push(number);
-      }
-    }
-    setNumbers(randomNumbers);
-  }
-
-useEffect(() => {
-    resetNumber();
-    shuffleCards();
   }, []);
 
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
+
+  const handleThemeSwitch = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
+
   return (
-    <div className='App flex flex-col justify-between'>
-      <div className='font2 text-2xl text-orange-400 mb-4'>Magic Memory</div>
-
-      <div className="box">
-        <div>
-          <button onClick={shuffleCards} className='newGameBtn'>New Game</button>
-          <div className="card-grid">
-            {cards.map(card => (
-              <SingleCard 
-                key={card.id} 
-                card={card} 
-                numbers={numbers}
-                handleChoice={handleChoice} 
-                flipped={card === choiceOne || card === choiceTwo || card.matched}
-                disabled={disabled}
-              />
-            ))}
-          </div>
-        <p className='mt-5'>Turns: {turns}</p>
-        <hr class="w-48 h-1 mx-auto my-2 bg-gray-700 border-0 rounded md:my-5 dark:bg-gray-700"></hr>
-        </div>
+    <main className='overflow-x-hidden antialiased bg-white dark:bg-slate-950 text-neutral-800 dark:text-neutral-300 transition-all duration-500'>
+      <Navbar />
+      <div className='flex items-center justify-center'>
+        <button className="p-3 rounded-full" onClick={handleThemeSwitch}>
+          {theme === "dark" ? (<BsSun size={25} />) : (<BsMoon size={25} />)}
+        </button>
       </div>
-
-
-
-
-      
+      <Hero />
+      <Services />
+      <Portfolio />
+      <About />
+      <Reviews />
+      <Contact />
+      <Socials />
       <Footer />
-    </div>
+    </main>
   )
 }
 

@@ -1,8 +1,7 @@
 import React from 'react';
-import { BiCopyright } from 'react-icons/bi';
+
 import { BsGithub } from 'react-icons/bs';
 import { FaReact } from 'react-icons/fa';
-import { BiLogoFirebase } from 'react-icons/bi';
 import { IoLogoJavascript } from "react-icons/io";
 import { TbBrandTailwind } from 'react-icons/tb';
 
@@ -10,7 +9,7 @@ const Footer = () => {
     const size = 25;
 
     return (
-        <div className='w-full text-sm p-2 rounded-sm text-center mt-5 text-gray-100 dark:bg-slate-900 duration-100'>
+        <div className='w-full text-sm p-2 rounded-sm text-center mt-5 text-gray-800 dark:text-gray-200 dark:bg-slate-900 duration-100'>
             <span>
                 <a href="https://github.com/Erik-Varga" target="_blank" rel="noreferrer">
                     <span className='flex items-center justify-center'>
@@ -18,7 +17,7 @@ const Footer = () => {
                         &nbsp;<BsGithub />
                     </span>
                 </a>
-                <a href="https://github.com/Erik-Varga/react-memory-game" target="_blank" rel="noreferrer" className='text-xs'>
+                <a href="https://github.com/Erik-Varga/react-vite-landing-page" target="_blank" rel="noreferrer" className='text-xs'>
                 Source Code |&nbsp;
                 </a>
             </span>
